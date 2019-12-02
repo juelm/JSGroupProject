@@ -6,37 +6,33 @@ const FPS = 30;
 let can = document.getElementById("gameCanvas");
 let ctx = can.getContext("2d");
 
+class yellowGuy{
+    constructor(x, y){
+        this.x = x;
+        this.y = y;
+        this.side = 10;
+        this.color = "yellow";
+    }
 
-document.addEventListener("keydown", keydown);
-document.addEventListener("keyup", keyup);
+    draw(){
 
-// function keydown(/** @type {keyboarkdEvent}*/ev){
-    
-//     switch(ev.keyCode){
-//         case 37: //Left Arrow
-//             break;
-//         case 38: //Up Arrow
-//             break;
-//         case 39: //Right Arrow
-//             break;
+        ctx.strokeStyle = this.color;
+        ctx.strokeRect(this.x, this.y, this.side, this.side);
+    }
+}
 
-//     }
-// }
-// function keyup(/** @type {keyboarkdEvent}*/ ev){
-//     switch(ev.keyCode){
-//         case 37: //Left Arrow
-//             break;
-//         case 38: //Up Arrow
-//             break;
-//         case 39: //Right Arrow
-//             break;
 
-//     }
-// }
+
+
 
 setInterval(update, 1000 / FPS);
 
 function update(){
+    
+    ctx.fillRect(0,0,can.width, can.height);
+
+    let yg1 = new yellowGuy(10,10);
+    yg1.draw();
 
 
 }
