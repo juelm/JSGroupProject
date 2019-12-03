@@ -1,5 +1,6 @@
 const FPS = 30;
 const turnSpeed = Math.PI / FPS;
+let cubeSpeed = 10;
 
 let can = document.getElementById('gameCanvas');
 let ctx = can.getContext('2d');
@@ -66,6 +67,16 @@ class yellowGuy {
 	}
 }
 
+class blueGuy extends yellowGuy{
+    constructor(x,y){
+        super(x, y);
+        this.side = 25;
+        this.color = '#FF00FF';
+        this.rotation = 2 * Math.PI;
+        this.clockwise = true;
+    }
+}
+
 class polygonalTrack {
 	constructor(x, y, width, height) {
 		this.x = x;
@@ -108,6 +119,7 @@ let p = 0;
 setInterval(update, 1000 / FPS);
 let tr1 = new polygonalTrack(xy, xy, can.width / 2, can.height / 2);
 let yg1 = new yellowGuy(300, 300);
+let bg = new blueGuy(tr1.x, tr1.y);
 
 function update() {
     ctx.fillRect(0, 0, can.width, can.height);
@@ -119,5 +131,18 @@ function update() {
         p++;
     }
     yg1.draw();
-    console.log(yg1.x);
+
+
+    //--------Path Tracing Logic----------
+    if(p === 20) {
+        bg.x = tr1.x;
+        bg.y = tr1.y
+    }
+    // else if(clockwise){
+    //     if(bg.y === tr1.y){
+    //         bg.x +=
+    //     }
+    // }
+    bg.draw();
+    //console.log(yg1.x);
 }
