@@ -266,6 +266,19 @@ function update() {
         p++;
         
     }
+        //yg1.draw();
+    
+ 
+        if(p === 20) {
+            bg.x = tr1.x;
+            bg.y = tr1.y
+            p++;
+        }
+        if(p > 20){
+            bg.draw();
+            bg.move(tr1);
+        }
+    
 }
 animate();
 
@@ -283,14 +296,14 @@ function animate(){
         if(percent <= 0)
         percent = 100;
     }
-    blueGuy(percent);
+    road(percent);
     
     setTimeout(function () {
         requestAnimationFrame(animate);
     }, 1000 / FPS);
     
 }
-function blueGuy(sliderValue) {
+function road(sliderValue) {
     
     ctx.clearRect(0, 0, can.width, can.height);
     ctx.lineWidth = 5;
@@ -363,23 +376,7 @@ function blueGuy(sliderValue) {
             y: 230
         }, percent);
     }
-
-    yg1.draw();
-    
- 
-    if(p === 20) {
-        bg.x = tr1.x;
-        bg.y = tr1.y
-        p++;
-    }
-    if(p > 20){
-        bg.draw();
-        bg.move(tr1);
-    }
-
-
     drawRect(newXY);
-
 }
 
 //this is lil guy
