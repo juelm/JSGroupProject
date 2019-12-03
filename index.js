@@ -1,7 +1,10 @@
+let can = document.getElementById('gameCanvas');
+//mouse click event handler thing
+can.addEventListener("mousedown", click, false);
+let ctx = can.getContext('2d');
+
 const FPS = 60;//30;
 
-let can = document.getElementById('gameCanvas');
-let ctx = can.getContext('2d');
 
 class yellowGuy {
 	constructor(x, y) {
@@ -59,7 +62,6 @@ let p = 0;
 //setInterval(update, 1000 / FPS);
 let percent = 0;
 let direction = 1;
-let newXY;
 //let yg1 = new yellowGuy(10, 10);
 
 function update() {
@@ -72,7 +74,7 @@ function update() {
 	tr1.setOriginXY(xy + 10 * p, xy + 10 * p);
     tr1.drawFun();
     if(p<20){
-
+        
         p++;
         
     }
@@ -80,52 +82,59 @@ function update() {
 animate();
 
 function animate(){
-
-    percent += direction;
-    if (percent >= 100){
+    //counter clockwise
+    if (direction == 1){
+        percent += direction;
+        if(percent >= 100){
         percent = 0;
+        }
     }
-
-     setTimeout(function () {
-         requestAnimationFrame(animate);
-     }, 1000 / FPS);
-    
+    //clockwise
+    if (direction == -1){
+        percent += direction;
+        if(percent <= 0)
+        percent = 100;
+    }
     blueGuy(percent);
+    
+    setTimeout(function () {
+        requestAnimationFrame(animate);
+    }, 1000 / FPS);
+    
 }
 function blueGuy(sliderValue) {
-
-    //side 1
+    
     ctx.clearRect(0, 0, can.width, can.height);
-
+    ctx.lineWidth = 5;
+    //fake road! just for visuals
+    //side 1 going counter clockwise
     ctx.beginPath();
     ctx.moveTo(230,230);
     ctx.lineTo(230,690);
     ctx.strokeStyle = 'red';
     ctx.stroke();
     //side 2
-    //ctx.clearRect(0, 0, can.width, can.height);
     ctx.beginPath();
     ctx.moveTo(230,690);
     ctx.lineTo(690,690);
-    ctx.strokeStyle = 'red';
+    ctx.strokeStyle = 'blue';
     ctx.stroke();
     // side 3
-    //ctx.clearRect(0, 0, can.width, can.height);
     ctx.beginPath();
     ctx.moveTo(690,690);
     ctx.lineTo(690,230);
-    ctx.strokeStyle = 'red';
+    ctx.strokeStyle = 'gold';
     ctx.stroke();
     // side 4
-    //ctx.clearRect(0, 0, can.width, can.height);
     ctx.beginPath();
     ctx.moveTo(690,230);
     ctx.lineTo(230,230);
-    ctx.strokeStyle = 'red';
+    ctx.strokeStyle = 'green';
     ctx.stroke();
-
-    //let xy;
-
+    
+    
+    let newXY = 0;
+    //this is the road!
     if (sliderValue < 25) {
         let percent = sliderValue / 24;
         newXY = getLineXYatPercent({
@@ -137,7 +146,7 @@ function blueGuy(sliderValue) {
         }, percent);
     }
     else if (sliderValue < 50) {
-        let percent = sliderValue / 24;
+        let percent = (sliderValue - 25) / 24
         newXY = getLineXYatPercent({
             x: 230,
             y: 690
@@ -147,7 +156,7 @@ function blueGuy(sliderValue) {
         }, percent);
     }
     else if (sliderValue < 75) {
-        let percent = sliderValue / 24;
+        let percent = (sliderValue - 50) / 24;
         newXY = getLineXYatPercent({
             x: 690,
             y: 690
@@ -157,7 +166,7 @@ function blueGuy(sliderValue) {
         }, percent);
     }
     else  {
-        let percent = sliderValue / 24;
+        let percent = (sliderValue - 75) / 24;
         newXY = getLineXYatPercent({
             x: 690,
             y: 230
@@ -168,24 +177,30 @@ function blueGuy(sliderValue) {
     }
     drawRect(newXY);
 }
+//this is lil guy
     function drawRect(point) {
-        ctx.fillStyle = "black";
-        ctx.strokeStyle = "gray";
+        ctx.fillStyle = "rgba(255, 255, 255, 0.5)"; //translucent
+        ctx.strokeStyle = "cyan";
         ctx.lineWidth = 3;
         ctx.beginPath();
-        ctx.rect(point.x - 13, point.y - 8, 25, 15);
+        ctx.rect(point.x - 14, point.y - 14, 25, 25); // -14 centers the lil guy on the road
         ctx.fill();
         ctx.stroke();
     }
-
+//using 
     function getLineXYatPercent(startPt, endPt, percent) {
-        var dx = endPt.x - startPt.x;
-        var dy = endPt.y - startPt.y;
-        var X = startPt.x + dx * percent;
-        var Y = startPt.y + dy * percent;
+        let dx = endPt.x - startPt.x;
+        let dy = endPt.y - startPt.y;
+        let X = startPt.x + dx * percent;
+        let Y = startPt.y + dy * percent;
         return ({
             x: X,
             y: Y
         });
     }
-
+//ON MOUSE CLICK
+function click(event){
+if (direction == 1) direction = -1;
+else if (direction == -1) direction = 1;
+percent = (percent + 50) % 100;
+}
