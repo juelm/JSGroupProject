@@ -1,4 +1,5 @@
 const FPS = 30;
+const turnSpeed = Math.PI / FPS;
 
 let can = document.getElementById('gameCanvas');
 let ctx = can.getContext('2d');
@@ -8,12 +9,60 @@ class yellowGuy {
 		this.x = x;
 		this.y = y;
 		this.side = 10;
-		this.color = 'yellow';
+        this.color = '#ffff00';
+        this.rotation = 2 * Math.PI;
 	}
 
 	draw() {
+
+        if(this.rotation >= 2 * Math.PI) this.rotation = 0;
+
+        let currentX = this.x + this.side / 2 * Math.cos(this.rotation);
+        let currentY = this.y + this.side / 2 * Math.sin(this.rotation);
+
 		ctx.strokeStyle = this.color;
-		ctx.strokeRect(this.x, this.y, this.side, this.side);
+        //ctx.strokeRect(this.x, this.y, this.side, this.side);
+        
+        ctx.beginPath();
+        ctx.moveTo(currentX, currentY);
+        
+        ctx.lineTo(currentX + (this.side / 2) * Math.cos(this.rotation + .5 * Math.PI),
+                   currentY + (this.side / 2) * Math.sin(this.rotation + .5 * Math.PI));
+
+        currentX += (this.side / 2) * Math.cos(this.rotation + .5 * Math.PI);
+        currentY += (this.side / 2) * Math.sin(this.rotation + .5 * Math.PI);
+
+
+        ctx.lineTo(currentX + this.side * Math.cos(this.rotation + Math.PI),
+        currentY + this.side * Math.sin(this.rotation +  Math.PI));
+
+        currentX += this.side * Math.cos(this.rotation + Math.PI);
+        currentY += this.side * Math.sin(this.rotation + Math.PI);
+
+        ctx.lineTo(currentX + this.side * Math.cos(this.rotation + 1.5 * Math.PI),
+        currentY + this.side * Math.sin(this.rotation +  1.5 * Math.PI));
+
+        currentX += this.side * Math.cos(this.rotation + 1.5 * Math.PI);
+        currentY += this.side * Math.sin(this.rotation + 1.5 * Math.PI);
+
+
+        // ctx.lineTo(this.side * Math.cos(this.rotation + 1.5 * Math.PI),
+        // this.side * Math.sin(this.rotation +  1.5 * Math.PI));
+        ctx.lineTo(currentX + this.side * Math.cos(this.rotation + 2 * Math.PI),
+        currentY + this.side * Math.sin(this.rotation +  2 * Math.PI));
+
+        ctx.closePath();
+        ctx.stroke();
+
+        this.rotation += turnSpeed;
+
+
+
+        // ctx.fillStyle = "white";
+        // ctx.fillRect(currentX, currentY, this.side, this.side);
+        // ctx.fillStyle = "black";
+
+        
 	}
 }
 
@@ -29,7 +78,7 @@ class polygonalTrack {
 		// for (let k = 0; k < 7; k++) {
 		// 	ctx.strokeStyle = rgb( 0, Math.floor(255-255/7*k), Math.floor(255/7*k));
 		// }
-		ctx.strokeStyle = "white";
+		ctx.strokeStyle = "cyan";
 		ctx.strokeRect(this.x, this.y, this.width, this.height);
     }
     
@@ -57,18 +106,18 @@ class polygonalTrack {
 let xy = 40;
 let p = 0;
 setInterval(update, 1000 / FPS);
+let tr1 = new polygonalTrack(xy, xy, can.width / 2, can.height / 2);
+let yg1 = new yellowGuy(300, 300);
 
 function update() {
     ctx.fillRect(0, 0, can.width, can.height);
     
-	let yg1 = new yellowGuy(10, 10);
-	yg1.draw();
-    
-    let tr1 = new polygonalTrack(xy, xy, can.width / 2, can.height / 2);
 	tr1.setOriginXY(xy + 10 * p, xy + 10 * p);
-    tr1.drawFun();
+    tr1.draw();
     if(p<20){
 
         p++;
     }
+    yg1.draw();
+    console.log(yg1.x);
 }
