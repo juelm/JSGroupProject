@@ -58,8 +58,6 @@ class polygonalTrack {
 	}
 
 }
-function blueGuy(sliderValue) {
-
 
 let xy = 40;
 let p = 0;
@@ -181,6 +179,7 @@ function blueGuy(sliderValue) {
     }
     drawRect(newXY);
 }
+
 //this is lil guy
     function drawRect(point) {
         ctx.fillStyle = "rgba(255, 255, 255, 0.5)"; //translucent
