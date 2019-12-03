@@ -3,7 +3,7 @@ const FPS = 30;
 const turnSpeed = Math.PI / FPS;
 let cubeSpeed = 10;
 let JUMP_SPEED = 120;
-
+let L1State = [];
 
 let can = document.getElementById('gameCanvas');
 //mouse click event handler thing
@@ -249,11 +249,18 @@ function keydown(/** @type {keyboarkdEvent}*/ev){
     }
 }
 
-//setInterval(update, 1000 / FPS);
+
 let percent = 0;
 let direction = 1;
 //let yg1 = new yellowGuy(10, 10);
 
+function createRow(track, y, arr){
+ 
+    for(let i = track.x + 75; i < track.x + track.width; i += 50){
+    let temp = new yellowGuy(i, y);
+    arr.push(temp);
+    }
+   }
 
 function update() {
     ctx.fillRect(0, 0, can.width, can.height);
@@ -262,9 +269,7 @@ function update() {
 	tr1.setOriginXY(xy + 10 * p, xy + 10 * p);
     tr1.draw();
     if(p<20){
-        
         p++;
-        
     }
         //yg1.draw();
     
@@ -273,14 +278,19 @@ function update() {
             bg.x = tr1.x;
             bg.y = tr1.y
             p++;
+            createRow(tr1,tr1.y+tr1.height/2,L1State);
+            createRow(tr1,tr1.y+tr1.height/2 + 50,L1State);
         }
         if(p > 20){
+            for(let i = 0; i < L1State.length; i++) {
+                L1State[i].draw();
+            }
             bg.draw();
             bg.move(tr1);
         }
     
 }
-animate();
+//animate();
 
 function animate(){
     //counter clockwise
