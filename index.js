@@ -1,3 +1,4 @@
+
 let can = document.getElementById('gameCanvas');
 //mouse click event handler thing
 can.addEventListener("mousedown", click, false);
@@ -55,7 +56,10 @@ class polygonalTrack {
 		this.x = newX;
 		this.y = newY;
 	}
+
 }
+function blueGuy(sliderValue) {
+
 
 let xy = 40;
 let p = 0;
@@ -204,3 +208,4 @@ if (direction == 1) direction = -1;
 else if (direction == -1) direction = 1;
 percent = (percent + 50) % 100;
 }
+
