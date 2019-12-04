@@ -22,15 +22,18 @@ export default class blueGuy extends yellowGuy{
 
     jump(){
 
-        this.jumping = true;
-        this.clockwise = !this.clockwise;
-        return([this.x,this.y]); //At event, need to know position of blueGuy for comparison with yellowGuy positions for hit detection. 
-
+        if(this.alive){
+            this.jumping = true;
+            this.clockwise = !this.clockwise;
+            return([this.x,this.y]); //At event, need to know position of blueGuy for comparison with yellowGuy positions for hit detection. 
+        }
     }
     
 
 
     move(track){
+
+        if(!this.alive) cubeSpeed = 0;
 
         if(!this.jumping){
 
