@@ -3,12 +3,12 @@ let ctx = can.getContext('2d');
 const FPS = 30;
 const turnSpeed = Math.PI / FPS;
 
-
-export default class yellowGuy{
+export default class yellowGuy {
 	constructor(x, y) {
 		this.x = x;
 		this.y = y;
 		this.side = 10;
+
         this.color = '#ffff00';
         this.rotation = 2 * Math.PI;
         this.corners = [];

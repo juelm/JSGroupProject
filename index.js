@@ -1,4 +1,3 @@
-
 import yellowGuy from './YellowGuy.js';
 import blueGuy from './BlueGuy.js';
 import polygonalTrack from './PolygonalTrack.js';
@@ -9,6 +8,7 @@ let gameTimer = 10;
 let secondTimer = 0;
 
 let can = document.getElementById('gameCanvas');
+
 let ctx = can.getContext('2d');
 
 let timeCan = document.getElementById('timerCanvas');
@@ -17,21 +17,29 @@ timeCtx.fillRect(0,0,timeCan.width,timeCan.height);
 
 let xy = 40;
 let p = 0;
+let bgCoordinates;
 
 setInterval(update, 1000 / FPS);
 let tr1 = new polygonalTrack(xy, xy, can.width / 2, can.height / 2);
 let yg1 = new yellowGuy(300, 300);
 let bg = new blueGuy(tr1.x, tr1.y);
 
+document.addEventListener('keydown', keydown);
 
-document.addEventListener("keydown", keydown);
+function keydown(/** @type {keyboardEvent}*/ ev) {
+	switch (ev.keyCode) {
+		case 13: //Enter Key
+            bgCoordinates = bg.jump(); //Need coordinates of blueGuy to compare withcoordinates of yellowGuy.
+            checkHitStatus();
+			break;
+	}
+}
 
-function keydown(/** @type {keyboarkdEvent}*/ev){
-    
-    switch(ev.keyCode){
-        case 13: //Enter Key
-            bg.jump();
-            break;
+function checkHitStatus (){
+    for(let m of L1State){
+        if( (bgCoordinates[0]>m.x-2)  && (bgCoordinates[0] <m.x+2) || (bgCoordinates[1]>m.y-2)  && (bgCoordinates[1] <m.y+2)){
+            m.alive=false;
+        }
     }
 }
 
@@ -40,19 +48,18 @@ let percent = 0;
 let direction = 1;
 //let yg1 = new yellowGuy(10, 10);
 
-function createRow(track, y, arr){
- 
-    for(let i = track.x + 75; i < track.x + track.width; i += 50){
-    let temp = new yellowGuy(i, y);
-    arr.push(temp);
-    }
-   }
+function createRow(track, y, arr) {
+	for (let i = track.x + 75; i < track.x + track.width; i += 50) {
+		let temp = new yellowGuy(i, y);
+		arr.push(temp);
+	}
+}
 
 function update() {
-    ctx.fillRect(0, 0, can.width, can.height);
-    
+	ctx.fillRect(0, 0, can.width, can.height);
 
 	tr1.setOriginXY(xy + 10 * p, xy + 10 * p);
+
     tr1.draw();
     if(p<20){
         p++;
@@ -98,4 +105,4 @@ function countdown() {
 
 }
 
-    
+  
