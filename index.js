@@ -4,20 +4,15 @@ import blueGuy from './BlueGuy.js';
 import polygonalTrack from './PolygonalTrack.js';
 
 const FPS = 30;
-let cubeSpeed = 10;
-let JUMP_SPEED = 120;
 let L1State = [];
-let gameTimer = 30;
+let gameTimer = 10;
 let secondTimer = 0;
 
 let can = document.getElementById('gameCanvas');
-//mouse click event handler thing
-can.addEventListener("mousedown", click, false);
 let ctx = can.getContext('2d');
 
 let timeCan = document.getElementById('timerCanvas');
 let timeCtx = timeCan.getContext('2d');
-//timeCtx.fillStyle = "green";
 timeCtx.fillRect(0,0,timeCan.width,timeCan.height);
 
 let xy = 40;
@@ -88,10 +83,10 @@ function update() {
                 gameTimer--;
                 secondTimer = 0;
             }
-            
-
+            if (gameTimer <= 0){
+                gameTimer = 0;
+            }
         }
-    
 }
 
 function countdown() {
