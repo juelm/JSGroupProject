@@ -28,8 +28,6 @@ export default class blueGuy extends yellowGuy{
 
     }
     
-
-
     move(track){
 
         if(!this.jumping){
@@ -123,7 +121,6 @@ export default class blueGuy extends yellowGuy{
                 this.jumping = false;
                 //this.clockwise = !this.clockwise;
             }
-
         }
     }
 }
