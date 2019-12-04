@@ -36,9 +36,10 @@ function keydown(/** @type {keyboardEvent}*/ ev) {
 }
 
 function checkHitStatus (){
+    let leeway=15;
     for(let m of L1State){
-        if( (bgCoordinates[0]>m.x-2)  && (bgCoordinates[0] <m.x+2) || (bgCoordinates[1]>m.y-2)  && (bgCoordinates[1] <m.y+2)){
-            m.alive=false;
+        if( (bgCoordinates[0]>m.x-leeway)  && (bgCoordinates[0] <m.x+leeway) || (bgCoordinates[1]>m.y-leeway)  && (bgCoordinates[1] <m.y+leeway)){
+            m.die();
         }
     }
 }
@@ -92,6 +93,8 @@ function update() {
             }
             if (gameTimer <= 0){
                 gameTimer = 0;
+                console.log("'Sup");
+                bg.die();
             }
         }
 }

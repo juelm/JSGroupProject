@@ -27,6 +27,8 @@ export default class blueGuy extends yellowGuy{
         return([this.x,this.y]); //At event, need to know position of blueGuy for comparison with yellowGuy positions for hit detection. 
 
     }
+    
+
 
     move(track){
 

@@ -67,7 +67,7 @@ export default class yellowGuy {
         }
 
     }
-    death(){
+    die(){
         this.alive = false;
 
     }
