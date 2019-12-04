@@ -24,7 +24,7 @@ export default class yellowGuy {
                     this.side += 1;
                 }
                 if (this.timeOfDeath > 30){
-                    this.side -= 1;
+                    this.side -= 1; 
                 }
             }
 
