@@ -435,31 +435,12 @@ else if (direction == -1) direction = 1;
 percent = (percent + 50) % 100;
 }
 function countdown() {
-    //timeCtx.textAlign = "right";
-    //timeCtx.fillStyle = "gold";
-    //timeCtx.fillStyle = "black";
+
     timeCtx.font = "50px Verdana";
-    
-    // let gradient = timeCtx.createLinearGradient(0, 0, timeCan.width, 0);
-    // gradient.addColorStop("0"," magenta");
-    // gradient.addColorStop("0.5", "blue");
-    // gradient.addColorStop("1.0", "red");
-    //timeCtx.fillStyle = gradient;
     timeCtx.fillStyle = "magenta";
-
-    let seconds = 30;
-    $seconds = document.getElementById('timerCanvas');
-    $seconds.textContent = seconds;
-    // if(seconds --> 0) setTimeout(countdown, 1000);
-
-
     timeCtx.fillText(gameTimer, 100, 90);
     timeCtx.fillStyle = "black";
 
-    // let count = setInterval(function() {
-    // seconds--;
-    // if (seconds <= 0) clearInterval(count);
-    // }, 1000);
 }
 
     
