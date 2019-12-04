@@ -8,42 +8,67 @@ export default class yellowGuy {
 		this.x = x;
 		this.y = y;
 		this.side = 10;
-		this.color = '#ffff00';
-		this.rotation = 2 * Math.PI;
-		this.corners = [];
+
+        this.color = '#ffff00';
+        this.rotation = 2 * Math.PI;
+        this.corners = [];
+        this.alive = true;
+        this.timeOfDeath = 0;
 	}
 
 	draw() {
-		if (this.rotation >= 2 * Math.PI) this.rotation = 0;
+        if (this.side > 0){
+            if (this.alive === false){
+                this.timeOfDeath += 1;
+                if (this.timeOfDeath <= 30){
+                    this.side += 1;
+                }
+                if (this.timeOfDeath > 30){
+                    this.side -= 1;
+                }
+            }
 
-		let currentX = this.x + this.side / 2 * Math.cos(this.rotation);
-		let currentY = this.y + this.side / 2 * Math.sin(this.rotation);
+            if(this.rotation >= 2 * Math.PI) this.rotation = 0;
 
-		ctx.strokeStyle = this.color;
+            let currentX = this.x + this.side / 2 * Math.cos(this.rotation);
+            let currentY = this.y + this.side / 2 * Math.sin(this.rotation);
 
-		ctx.beginPath();
-		ctx.moveTo(currentX, currentY);
+            ctx.strokeStyle = this.color;
+            
+            ctx.beginPath();
+            ctx.moveTo(currentX, currentY);
+            
+            ctx.lineTo(currentX + (this.side / 2) * Math.cos(this.rotation + .5 * Math.PI),
+                    currentY + (this.side / 2) * Math.sin(this.rotation + .5 * Math.PI));
 
-		getCorners(this.side, this.rotation);
+            currentX += (this.side / 2) * Math.cos(this.rotation + .5 * Math.PI);
+            currentY += (this.side / 2) * Math.sin(this.rotation + .5 * Math.PI);
 
-		ctx.closePath();
-		ctx.stroke();
 
-		this.rotation += turnSpeed;
+            ctx.lineTo(currentX + this.side * Math.cos(this.rotation + Math.PI),
+            currentY + this.side * Math.sin(this.rotation +  Math.PI));
 
-		function newXY(s, r, counter1) {
-			currentX += s * Math.cos(r + counter1 * Math.PI * 0.5);
-			currentY += s * Math.sin(r + counter1 * Math.PI * 0.5);
-		}
-		function getCorners(s, r) {
-			for (let k = 1; k < 5; k++) {
-				if (k === 1) {
-					newXY(s / 2, r, k);
-				} else {
-					newXY(s, r, k);
-				}
-				ctx.lineTo(currentX, currentY);
-			}
-		}
-	}
+            currentX += this.side * Math.cos(this.rotation + Math.PI);
+            currentY += this.side * Math.sin(this.rotation + Math.PI);
+
+            ctx.lineTo(currentX + this.side * Math.cos(this.rotation + 1.5 * Math.PI),
+            currentY + this.side * Math.sin(this.rotation +  1.5 * Math.PI));
+
+            currentX += this.side * Math.cos(this.rotation + 1.5 * Math.PI);
+            currentY += this.side * Math.sin(this.rotation + 1.5 * Math.PI);
+
+            ctx.lineTo(currentX + this.side * Math.cos(this.rotation + 2 * Math.PI),
+            currentY + this.side * Math.sin(this.rotation +  2 * Math.PI));
+
+            ctx.closePath();
+            ctx.stroke();
+
+            this.rotation += turnSpeed; 
+        }
+
+    }
+    death(){
+        this.alive = false;
+
+    }
 }
