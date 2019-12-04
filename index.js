@@ -4,15 +4,14 @@ import blueGuy from './BlueGuy.js';
 import polygonalTrack from './PolygonalTrack.js';
 
 const FPS = 30;
-let cubeSpeed = 10;
-let JUMP_SPEED = 120;
+// let cubeSpeed = 10;
+// let JUMP_SPEED = 120;
 let L1State = [];
 
 let can = document.getElementById('gameCanvas');
 //mouse click event handler thing
 can.addEventListener("mousedown", click, false);
 let ctx = can.getContext('2d');
-
 
 
 let xy = 40;
