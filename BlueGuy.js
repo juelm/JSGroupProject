@@ -24,6 +24,7 @@ export default class blueGuy extends yellowGuy{
 
         this.jumping = true;
         this.clockwise = !this.clockwise;
+        return([this.x,this.y]); //At event, need to know position of blueGuy for comparison with yellowGuy positions for hit detection. 
 
     }
 
@@ -90,8 +91,8 @@ export default class blueGuy extends yellowGuy{
 
             }
 
-            this.x += this.xDirection * remainder;
-            this.y += this.yDirection * remainder;
+            this.x += this.xDirection * remainder*1.5;
+            this.y += this.yDirection * remainder*1.5;
         }else{
             if(this.x === track.x){
                 this.yDirection *= -1;
