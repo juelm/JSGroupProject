@@ -18,9 +18,10 @@ timeCtx.fillRect(0,0,timeCan.width,timeCan.height);
 let xy = 40;
 let p = 0;
 let bgCoordinates;
+let obstacleCoord;
 
 setInterval(update, 1000 / FPS);
-let tr1 = new polygonalTrack(xy, xy, can.width / 2, can.height / 2);
+let tr1 = new polygonalTrack(xy, xy, can.width / 2, can.height / 2,1); //Added obstacles parameter to polygonalTrack.
 let yg1 = new yellowGuy(300, 300);
 let bg = new blueGuy(tr1.x, tr1.y);
 
@@ -30,6 +31,9 @@ function keydown(/** @type {keyboardEvent}*/ ev) {
 	switch (ev.keyCode) {
 		case 13: //Enter Key
             bgCoordinates = bg.jump(); //Need coordinates of blueGuy to compare withcoordinates of yellowGuy.
+            obstacleCoord = tr1.getObstacleCoords();
+            checkobstacleStatus();
+
             checkHitStatus();
 			break;
 	}
@@ -41,6 +45,16 @@ function checkHitStatus (){
         if( (bgCoordinates[0]>m.x-leeway)  && (bgCoordinates[0] <m.x+leeway) || (bgCoordinates[1]>m.y-leeway)  && (bgCoordinates[1] <m.y+leeway)){
             m.die();
         }
+    }
+}
+
+function checkobstacleStatus(){
+
+    for(let a of obstacleCoord){
+        if( (bgCoordinates[0]>a[0])  && (bgCoordinates[0] <a[2]) || (bgCoordinates[1]>a[1])  && (bgCoordinates[1] <a[3])){
+            bg.die();
+        }
+
     }
 }
 
@@ -93,7 +107,7 @@ function update() {
             }
             if (gameTimer <= 0){
                 gameTimer = 0;
-                console.log("'Sup");
+                //console.log("'Sup");
                 bg.die();
             }
         }
