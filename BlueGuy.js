@@ -131,7 +131,6 @@ export default class blueGuy extends yellowGuy{
                 this.jumping = false;
                 //this.clockwise = !this.clockwise;
             }
-
         }
     }
 
