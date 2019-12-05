@@ -1,5 +1,4 @@
 
-let cubeSpeed = 10;
 let JUMP_SPEED = 120;
 let can = document.getElementById('gameCanvas');
 let ctx = can.getContext('2d');
@@ -19,6 +18,7 @@ export default class blueGuy extends yellowGuy{
         this.jumpX = 0;
         this.jumpY = 0;
         this.won = false;
+        this.cubeSpeed = 10;
     }
 
     jump(){
@@ -32,13 +32,13 @@ export default class blueGuy extends yellowGuy{
 
     move(track){
 
-        if(!this.alive) cubeSpeed = 0;
+        if(!this.alive) this.cubeSpeed = 0;
 
         if(!this.jumping){
 
             let remainder = 0;
-            this.x += this.xDirection * cubeSpeed;
-            this.y += this.yDirection * cubeSpeed;
+            this.x += this.xDirection * this.cubeSpeed;
+            this.y += this.yDirection * this.cubeSpeed;
 
             if (this.clockwise){
                 if(this.x > track.x + track.width){

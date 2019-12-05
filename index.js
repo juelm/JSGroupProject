@@ -28,7 +28,7 @@ let bg = new blueGuy(tr1.x, tr1.y);
 
 document.addEventListener('keydown', keydown);
 
-function keydown(/** @type {keyboardEvent}*/ ev) {
+function keydown(ev) {
 	switch (ev.keyCode) {
 		case 13: //Enter Key
             bgCoordinates = bg.jump(); //Need coordinates of blueGuy to compare withcoordinates of yellowGuy.
@@ -48,7 +48,7 @@ function checkHitStatus (){
 
 
 function createRow(track, y, arr) {
-	for (let i = track.x + 75; i < track.x + track.width; i += 50) {
+	for (let i = track.x + 50; i < track.x + track.width; i += 50) {
 		let temp = new yellowGuy(i, y);
 		arr.push(temp);
 	}
@@ -56,10 +56,11 @@ function createRow(track, y, arr) {
 
 function update() {
 	ctx.fillRect(0, 0, can.width, can.height);
-	tr1.setOriginXY(xy + 10 * p, xy + 10 * p);
     tr1.draw();
+
     if(p<20){
         p++;
+        tr1.setOriginXY(xy + 10 * p, xy + 10 * p);
     }
 
     if(p === 20) {
