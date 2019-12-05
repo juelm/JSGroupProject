@@ -8,7 +8,6 @@ export default class yellowGuy {
 		this.x = x;
 		this.y = y;
 		this.side = 10;
-
         this.color = '#ffff00';
         this.rotation = 2 * Math.PI;
         this.corners = [];
@@ -65,10 +64,8 @@ export default class yellowGuy {
 
             this.rotation += turnSpeed; 
         }
-
     }
     die(){
         this.alive = false;
-
     }
 }
