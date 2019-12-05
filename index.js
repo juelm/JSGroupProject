@@ -66,12 +66,12 @@ function update() {
         bg.x = tr1.x;
         bg.y = tr1.y
         p++;
-        createRow(tr1,tr1.y+tr1.height/2,L1State);
-        createRow(tr1,tr1.y+tr1.height/2 + 50,L1State);
+        createRow(tr1,tr1.y+tr1.height/2, L1State);
+        createRow(tr1,tr1.y+tr1.height/2 + 50, L1State);
 
         
     }
-    if(p > 20){
+    if(p === 21){
 
         let allDone = true;
 
@@ -102,10 +102,24 @@ function update() {
             for (let j = 0; j < L1State.length; j++){
                 L1State[j].die();
             }
-            setTimeout(() => {gameTimer = 10; p = 0; bg = new blueGuy();}, 3000);
-            
+            setTimeout(() => {gameTimer = 10; 
+                              secondTimer = 0; 
+                              L1State = []; 
+                              p = 0; 
+                              bg = new blueGuy(tr1.x, tr1.y); 
+                              tr1 = new polygonalTrack(xy, xy, can.width / 2, can.height / 2)
+                            }, 3000);
+
+            p++;
             
         }
+    }
+    if(p === 22){
+        bg.draw();
+        for(let i = 0; i < L1State.length; i++) {
+            L1State[i].draw();
+        }
+
     }
 }
 
