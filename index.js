@@ -62,7 +62,6 @@ function update() {
         p++;
     }
     if(p === 20) {
-        //bg.alive = true;
         bg.x = tr1.x;
         bg.y = tr1.y
         p++;
@@ -70,7 +69,6 @@ function update() {
         createRow(tr1,tr1.y+tr1.height/2 + 50,L1State);
     }
     if(p > 20){
-        //console.log(bg.alive);
         for(let i = 0; i < L1State.length; i++) {
             L1State[i].draw();
         }
