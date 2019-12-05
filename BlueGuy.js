@@ -18,6 +18,7 @@ export default class blueGuy extends yellowGuy{
         this.jumping = false;
         this.jumpX = 0;
         this.jumpY = 0;
+        this.won = false;
     }
 
     jump(){
@@ -28,8 +29,6 @@ export default class blueGuy extends yellowGuy{
             return([this.x,this.y]); //At event, need to know position of blueGuy for comparison with yellowGuy positions for hit detection. 
         }
     }
-    
-
 
     move(track){
 
@@ -56,9 +55,12 @@ export default class blueGuy extends yellowGuy{
                 }
                 if(this.y > track.y + track.height){
                     remainder = this.y - track.y  - track.height;
-                    this.y = track.y + track.height;
-                    this.xDirection = -1;
-                    this.yDirection = 0;
+                    if(!this.won){
+                        this.y = track.y + track.height;
+                        this.xDirection = -1;
+                        this.yDirection = 0;
+                    }
+
                 }
                 if(this.y < track.y){
                     remainder = track.y - this.y;
@@ -82,9 +84,12 @@ export default class blueGuy extends yellowGuy{
                 }
                 if(this.y > track.y + track.height){
                     remainder = this.y - track.y  - track.height;
-                    this.y = track.y + track.height;
-                    this.xDirection = 1;
-                    this.yDirection = 0;
+                    if(!this.won){
+                        this.y = track.y + track.height;
+                        this.xDirection = 1;
+                        this.yDirection = 0;
+                    }
+
                 }
                 if(this.y < track.y){
                     remainder = track.y - this.y;
@@ -128,5 +133,10 @@ export default class blueGuy extends yellowGuy{
             }
 
         }
+    }
+
+
+    win(){
+        this.won = true;
     }
 }

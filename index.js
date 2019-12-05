@@ -77,9 +77,15 @@ function update() {
             
         }
         if(p > 20){
+
+            let allDone = true;
+
             for(let i = 0; i < L1State.length; i++) {
                 L1State[i].draw();
+                if(L1State[i].alive) allDone = false; 
             }
+
+            if(allDone) bg.win();
             bg.draw();
             bg.move(tr1);
 
@@ -88,12 +94,11 @@ function update() {
             countdown();
             secondTimer ++;
             if (secondTimer == FPS){
-                gameTimer--;
+                if(!allDone) gameTimer--;
                 secondTimer = 0;
             }
             if (gameTimer <= 0){
                 gameTimer = 0;
-                console.log("'Sup");
                 bg.die();
             }
         }
