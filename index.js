@@ -61,17 +61,27 @@ function update() {
     if(p<20){
         p++;
     }
+
     if(p === 20) {
         bg.x = tr1.x;
         bg.y = tr1.y
         p++;
         createRow(tr1,tr1.y+tr1.height/2,L1State);
         createRow(tr1,tr1.y+tr1.height/2 + 50,L1State);
+
+        
     }
     if(p > 20){
+
+        let allDone = true;
+
         for(let i = 0; i < L1State.length; i++) {
             L1State[i].draw();
+            if(L1State[i].alive) allDone = false; 
         }
+
+        if(allDone) bg.win();
+
         bg.draw();
         bg.move(tr1);
 
@@ -80,12 +90,15 @@ function update() {
         countdown();
         secondTimer ++;
         if (secondTimer == FPS){
-            gameTimer--;
+
+            if(!allDone) gameTimer--;
+
             secondTimer = 0;
         }
         if (gameTimer <= 0){
             gameTimer = 0;
             bg.die();
+
             for (let j = 0; j < L1State.length; j++){
                 L1State[j].die();
             }
