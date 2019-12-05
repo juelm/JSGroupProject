@@ -68,40 +68,40 @@ function update() {
         //yg1.draw();
     
  
-        if(p === 20) {
-            bg.x = tr1.x;
-            bg.y = tr1.y
-            p++;
-            createRow(tr1,tr1.y+tr1.height/2,L1State);
-            createRow(tr1,tr1.y+tr1.height/2 + 50,L1State);
-            
+    if(p === 20) {
+        bg.x = tr1.x;
+        bg.y = tr1.y
+        p++;
+        createRow(tr1,tr1.y+tr1.height/2,L1State);
+        createRow(tr1,tr1.y+tr1.height/2 + 50,L1State);
+        
+    }
+    if(p > 20){
+
+        let allDone = true;
+
+        for(let i = 0; i < L1State.length; i++) {
+            L1State[i].draw();
+            if(L1State[i].alive) allDone = false; 
         }
-        if(p > 20){
 
-            let allDone = true;
+        if(allDone) bg.win();
+        bg.draw();
+        bg.move(tr1);
 
-            for(let i = 0; i < L1State.length; i++) {
-                L1State[i].draw();
-                if(L1State[i].alive) allDone = false; 
-            }
-
-            if(allDone) bg.win();
-            bg.draw();
-            bg.move(tr1);
-
-            timeCtx.clearRect(0,0,timeCan.width,timeCan.height);
-            timeCtx.fillRect(0,0,timeCan.width,timeCan.height);
-            countdown();
-            secondTimer ++;
-            if (secondTimer == FPS){
-                if(!allDone) gameTimer--;
-                secondTimer = 0;
-            }
-            if (gameTimer <= 0){
-                gameTimer = 0;
-                bg.die();
-            }
+        timeCtx.clearRect(0,0,timeCan.width,timeCan.height);
+        timeCtx.fillRect(0,0,timeCan.width,timeCan.height);
+        countdown();
+        secondTimer ++;
+        if (secondTimer == FPS){
+            if(!allDone) gameTimer--;
+            secondTimer = 0;
         }
+        if (gameTimer <= 0){
+            gameTimer = 0;
+            bg.die();
+        }
+    }
 }
 
 function countdown() {
