@@ -9,13 +9,12 @@ let L1State = [];
 let gameTimer = 10;
 let secondTimer = 0;
 
-let can = document.getElementById('gameCanvas');
-
-let ctx = can.getContext('2d');
-
 let timeCan = document.getElementById('timerCanvas');
 let timeCtx = timeCan.getContext('2d');
 timeCtx.fillRect(0, 0, timeCan.width, timeCan.height);
+
+let can = document.getElementById('gameCanvas');
+let ctx = can.getContext('2d');
 
 let xy = 40;
 let p = 0;
@@ -38,7 +37,7 @@ function keydown(/** @type {keyboardEvent}*/ ev) {
 		case 32:
 			bgCoordinates = bg.jump(); //Need coordinates of blueGuy to compare withcoordinates of yellowGuy.
 			obstacleCoord = tr1.getObstacleCoords();
-      checkobstacleStatus();
+            checkobstacleStatus();
 			checkHitStatus();
 			break;
 	}
@@ -58,12 +57,10 @@ function checkHitStatus() {
 function checkobstacleStatus(){
 
 	for(let a of obstacleCoord){
-			if( (bgCoordinates[0]>a[0])  && (bgCoordinates[0] <a[2]) || (bgCoordinates[1]>a[1])  && (bgCoordinates[1] <a[3])){
-
-					bg.die();
-					hitObstacle=true;
-			}
-
+		if( (bgCoordinates[0]>a[0])  && (bgCoordinates[0] <a[2]) || (bgCoordinates[1]>a[1])  && (bgCoordinates[1] <a[3])){
+            bg.die();
+            hitObstacle=true;
+        }
 	}
 }
 
@@ -95,7 +92,6 @@ function update() {
 		p++;
 		tr1.setOriginXY(xy + 10 * p, xy + 10 * p);
 	}
-
 	if (p === 20) {
 		bg.x = tr1.x;
 		bg.y = tr1.y;
@@ -117,12 +113,9 @@ function update() {
 
 		bg.draw();
 		bg.move(tr1);
-
-
 		secondTimer++;
 		if (secondTimer == FPS) {
 			if (!allDone) gameTimer--;
-
 			secondTimer = 0;
 		}
 
@@ -133,7 +126,6 @@ function update() {
 		if (gameTimer <= 0) {
 			gameTimer = 0;
 			bg.die();
-
 			for (let j = 0; j < L1State.length; j++) {
 				L1State[j].die();
 			}
@@ -152,7 +144,6 @@ function update() {
         for(let i = 0; i < L1State.length; i++) {
             L1State[i].draw();
         }
-
     }
 }
 
