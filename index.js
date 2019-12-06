@@ -1,6 +1,8 @@
 import yellowGuy from './YellowGuy.js';
 import blueGuy from './BlueGuy.js';
 import polygonalTrack from './PolygonalTrack.js';
+import wall from './wall.js';
+import circleWall from './wall.js';
 
 const FPS = 30;
 let L1State = [];
@@ -25,6 +27,8 @@ setInterval(update, 1000 / FPS);
 let tr1 = new polygonalTrack(xy, xy, can.width / 2, can.height / 2,1);
 //let yg1 = new yellowGuy(300, 300);
 let bg = new blueGuy();
+let wall1 = new wall(25, 25, 50, .25 * Math.PI, "red")
+let wall2 = new circleWall(100, 100, 50, "red");
 
 document.addEventListener('keydown', keydown);
 
@@ -72,10 +76,11 @@ function createRow(track, y, arr) {
 
 function update() {
 	ctx.fillRect(0, 0, can.width, can.height);
-	tr1.setOriginXY(xy + 10 * p, xy + 10 * p);
+
 	tr1.draw();
 	if (p < 20) {
 		p++;
+		tr1.setOriginXY(xy + 10 * p, xy + 10 * p);
 	}
 
 	if (p === 20) {
@@ -85,8 +90,10 @@ function update() {
 		createRow(tr1, tr1.y + tr1.height / 2, L1State);
 		createRow(tr1, tr1.y + tr1.height / 2 + 50, L1State);
 	}
-	if (p > 20) {
+	if (p === 21) {
 		let allDone = true;
+		wall1.draw();
+        wall2.draw();
 
 		for (let i = 0; i < L1State.length; i++) {
 			L1State[i].draw();
@@ -98,15 +105,18 @@ function update() {
 		bg.draw();
 		bg.move(tr1);
 
-		timeCtx.clearRect(0, 0, timeCan.width, timeCan.height);
-		timeCtx.fillRect(0, 0, timeCan.width, timeCan.height);
-		countdown();
+
 		secondTimer++;
 		if (secondTimer == FPS) {
 			if (!allDone) gameTimer--;
 
 			secondTimer = 0;
 		}
+
+		timeCtx.clearRect(0, 0, timeCan.width, timeCan.height);
+		timeCtx.fillRect(0, 0, timeCan.width, timeCan.height);
+		countdown();
+
 		if (gameTimer <= 0) {
 			gameTimer = 0;
 			bg.die();
@@ -120,8 +130,17 @@ function update() {
 				hitObstacle=false;
 				bg = new blueGuy();
 			}, 3000);
+			p++;
 		}
 	}
+
+	if(p === 22){
+        bg.draw();
+        for(let i = 0; i < L1State.length; i++) {
+            L1State[i].draw();
+        }
+
+    }
 }
 
 function countdown() {
