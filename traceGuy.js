@@ -32,10 +32,15 @@ export default class traceGuy extends yellowGuy{
         }
     }
 
-    move(track){
+    move(){
 
+            let remainder = 0;
+            this.xDirection = this.currentWall.xDirection
+            this.x += this.xDirection * this.cubeSpeed;
+            this.y += this.yDirection * this.cubeSpeed;
+        
 
-        for(wall of track){
+        for(wall of this.track){
             if((this.x >= wall.startX && this.x <= wall.endX || this.x <= wall.startX && this.x >= wall.endX) &&  
                 (this.y >= wall.startY && this.y <= wall.endY || this.y <= wall.startY && this.y >= wall.endY)){
                     currentWall = wall;
@@ -49,9 +54,7 @@ export default class traceGuy extends yellowGuy{
 
 
 
-        //     let remainder = 0;
-        //     this.x += this.xDirection * this.cubeSpeed;
-        //     this.y += this.yDirection * this.cubeSpeed;
+
 
         //     if (this.clockwise){
         //         if(this.x > track.x + track.width){
