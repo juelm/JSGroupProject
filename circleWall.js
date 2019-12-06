@@ -92,7 +92,9 @@ function update() {
         bg.draw();
         bg.move(tr1);
 
-
+        timeCtx.clearRect(0,0,timeCan.width,timeCan.height);
+        timeCtx.fillRect(0,0,timeCan.width,timeCan.height);
+        countdown();
         secondTimer ++;
         if (secondTimer == FPS){
 
@@ -100,11 +102,6 @@ function update() {
 
             secondTimer = 0;
         }
-
-        timeCtx.clearRect(0,0,timeCan.width,timeCan.height);
-        timeCtx.fillRect(0,0,timeCan.width,timeCan.height);
-        countdown();
-        
         if (gameTimer <= 0){
             gameTimer = 0;
             bg.die();

@@ -43,7 +43,6 @@ export default class yellowGuy {
             currentX += (this.side / 2) * Math.cos(this.rotation + .5 * Math.PI);
             currentY += (this.side / 2) * Math.sin(this.rotation + .5 * Math.PI);
 
-
             ctx.lineTo(currentX + this.side * Math.cos(this.rotation + Math.PI),
             currentY + this.side * Math.sin(this.rotation +  Math.PI));
 
