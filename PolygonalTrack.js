@@ -11,10 +11,11 @@ export default class polygonalTrack {
 		this.obstacleLvl=obstaclesLvl;
 		this.obstacleArray1=[];
 		this.populateObsArr();
+		this.theta=0;
 	}
 	populateObsArr(){
 		
-		let obs1=[this.x+120, this.y + this.height/3, this.x+220,this.y + this.height/3];
+		let obs1=[this.x+160-Math.cos(this.theta)*50, this.y + this.height/3-Math.sin(this.theta)*50, this.x+160 + 50*Math.cos(this.theta),this.y + this.height/3 + Math.sin(this.theta)*50];
 		let obs2 = obs1.slice();
 		obs2[0]+=250;
 		obs2[1]+=this.height/3;
@@ -36,6 +37,7 @@ export default class polygonalTrack {
 			ctx.lineTo(a[2], a[3]);
 			ctx.closePath();
 			ctx.stroke();
+			this.theta+=Math.PI/36;
 		}
 
 	}
