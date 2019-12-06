@@ -73,7 +73,20 @@ function createRow(track, y, arr) {
 		arr.push(temp);
 	}
 }
-
+function createDia(track, arr) {
+	for (let i = track.x + 80; i < track.y + track.height; i += 20) {
+		let temp = new yellowGuy(i, i);
+        arr.push(temp);
+	}
+}
+function createBckDia(track, arr) {
+    let y = track.y;
+	for (let i = track.x + track.width - 80; i > track.x; i -= 20) {
+		let temp = new yellowGuy(i, y);
+        arr.push(temp);
+        y += 20;
+	}
+}
 function update() {
 	ctx.fillRect(0, 0, can.width, can.height);
 
