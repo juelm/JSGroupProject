@@ -4,6 +4,7 @@ import polygonalTrack from './PolygonalTrack.js';
 import wall from './wall.js';
 import circleWall from './wall.js';
 
+let score = 0;
 const FPS = 30;
 let L1State = [];
 let gameTimer = 10;
@@ -38,7 +39,7 @@ function keydown(/** @type {keyboardEvent}*/ ev) {
 		case 32:
 			bgCoordinates = bg.jump(); //Need coordinates of blueGuy to compare withcoordinates of yellowGuy.
 			obstacleCoord = tr1.getObstacleCoords();
-      checkobstacleStatus();
+      		checkobstacleStatus();
 			checkHitStatus();
 			break;
 	}
@@ -68,7 +69,7 @@ function checkobstacleStatus(){
 }
 
 function createRow(track, y, arr) {
-	for (let i = track.x + 75; i < track.x + track.width; i += 50) {
+	for (let i = track.x + 50; i < track.x + track.width; i += 50) {
 		let temp = new yellowGuy(i, y);
 		arr.push(temp);
 	}
@@ -84,6 +85,7 @@ function update() {
 	}
 
 	if (p === 20) {
+		score = 0;
 		bg.x = tr1.x;
 		bg.y = tr1.y;
 		p++;
@@ -93,12 +95,18 @@ function update() {
 	if (p === 21) {
 		let allDone = true;
 		wall1.draw();
-        wall2.draw();
+		wall2.draw();
+		
+		let numDead = 0;
 
 		for (let i = 0; i < L1State.length; i++) {
 			L1State[i].draw();
 			if (L1State[i].alive) allDone = false;
+			if (!L1State[i].alive) numDead++;
+			
 		}
+
+		score = numDead * 10;
 
 		if (allDone) bg.win();
 
@@ -124,11 +132,25 @@ function update() {
 			for (let j = 0; j < L1State.length; j++) {
 				L1State[j].die();
 			}
+			// setTimeout(() => {
+			// 	gameTimer = 10;
+			// 	p = 0;
+			// 	hitObstacle=false;
+			// 	bg = new blueGuy();
+			// 	L1State = [];
+			// 	score = 0;
+			// }, 3000);
+			// p++;
+		}
+
+		if(!bg.alive){
 			setTimeout(() => {
 				gameTimer = 10;
 				p = 0;
 				hitObstacle=false;
 				bg = new blueGuy();
+				L1State = [];
+				score = 0;
 			}, 3000);
 			p++;
 		}
@@ -147,5 +169,9 @@ function countdown() {
 	timeCtx.font = '50px Verdana';
 	timeCtx.fillStyle = 'magenta';
 	timeCtx.fillText(gameTimer, 100, 90);
+	timeCtx.fillStyle = 'cyan';
+	timeCtx.fillText("Off The Line", 400, 90);
+	timeCtx.fillStyle = 'magenta';
+	timeCtx.fillText(score, 950, 90);
 	timeCtx.fillStyle = 'black';
 }
